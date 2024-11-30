@@ -20,9 +20,15 @@ def http_get_request_url(url):
     else:
         raise Exception(f"Failed to get: {response.status}")
 
+
 def test_should_return_get_request():
     url = "https://pokeapi.co/api/v2/"
     response = http_get_request_url(url)
 
     assert response[0] == 200
     assert isinstance(response[1], dict)
+
+def test_should_return_tuple_of_token_and_ip():
+    headers = get_token_ip()
+    assert "token" in headers
+    assert "ip" in headers
