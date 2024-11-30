@@ -1,4 +1,5 @@
 import requests
+from unittest.mock import patch, Mock
 
 def http_get_request_url(url):
     """
@@ -21,12 +22,20 @@ def http_get_request_url(url):
         raise Exception(f"Failed to get: {response.status}")
 
 def get_token_ip():
+    """
+    Sends a GET request to `https://echo.free.beeceptor.com` and get IP address and Postman Token.
+    
+    Returns:
+        A dictionary containing 'Postman-Token' and 'IP-Address'.
+    """
     url = "https://echo.free.beeceptor.com"
     response = requests.get(url)
     headers = response.headers
     return{
         "token": headers.get("Postman-Token"), "ip": headers.get("X-Forwarded-For") or headers.get("Remote-Addr")
     }
+
+
 
 def test_should_return_get_request():
     url = "https://pokeapi.co/api/v2/"
@@ -39,3 +48,5 @@ def test_should_return_tuple_of_token_and_ip():
     headers = get_token_ip()
     assert "token" in headers
     assert "ip" in headers
+
+
