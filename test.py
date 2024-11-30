@@ -37,6 +37,12 @@ def get_token_ip():
     }
 
 def http_post_request():
+    """
+    Sends a POST request to `https://echo.free.beeceptor.com` with a JSON object.
+    
+    Returns:
+        The response object from the POST request.
+    """
     url = "https://echo.free.beeceptor.com"
     sent = {"hello": "world"}
     response = requests.post(url, json = sent)
