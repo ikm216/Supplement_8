@@ -20,6 +20,13 @@ def http_get_request_url(url):
     else:
         raise Exception(f"Failed to get: {response.status}")
 
+def get_token_ip():
+    url = "https://echo.free.beeceptor.com"
+    response = requests.get(url)
+    headers = response.headers
+    return{
+        "token": headers.get("Postman-Token"), "ip": headers.get("X-Forwarded-For") or headers.get("Remote-Addr")
+    }
 
 def test_should_return_get_request():
     url = "https://pokeapi.co/api/v2/"
