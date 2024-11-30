@@ -1,3 +1,4 @@
+
 import requests
 from unittest.mock import patch, Mock
 
@@ -35,7 +36,13 @@ def get_token_ip():
         "token": headers.get("Postman-Token"), "ip": headers.get("X-Forwarded-For") or headers.get("Remote-Addr")
     }
 
-def http_post_request()
+def http_post_request():
+    url = "https://echo.free.beeceptor.com"
+    sent = {"hello": "world"}
+    response = requests.post(url, json = sent)
+    return response
+
+
 
 def test_should_return_get_request():
     url = "https://pokeapi.co/api/v2/"
@@ -50,8 +57,8 @@ def test_should_return_tuple_of_token_and_ip():
     assert "ip" in headers
 
 @patch("requests.post")
-def test_should_return_json_object_key_hello_value_world():
-   mock_post.return_value = Mock(status_code = 200, json = lambda: {"hello": "world"})
-   response = http_post_request()
-   assert response.status_code == 200
-   assert response.json() == {"hello": "world"}
+def test_should_return_json_object_key_hello_value_world(mock):
+    mock.return_value = Mock(status_code = 200, json = lambda: {"hello": "world"})
+    response = http_post_request()
+    assert response.status_code == 200
+    assert response.json() == {"hello": "world"}
